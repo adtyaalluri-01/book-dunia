@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+  <meta name="description" content="{{ book.title }} by {{ book.author }} – ₹{{ book.price }}">
+  <meta property="og:title" content="{{ book.title }}">
+  <meta property="og:image" content="{{ book.cover.url }}">
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+{% endblock %}
+
+{% block content %}
+<div class="book-detail">
+  <div class="book-image">
+    {% if book.cover %}
+      <img src="{{ book.cover.url }}" alt="{{ book.title }}" />
+    {% else %}
+      <div class="no-image">No cover available</div>
+    {% endif %}
+  </div>
+
+  <div class="book-info">
+    <h2>{{ book.title }}</h2>
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>Price:</strong> ₹{{ book.price }}</p>
+    <p><strong>Rating:</strong> {{ book.rating }}</p>
+    <p><strong>Category:</strong> {{ book.category }}</p>
+    <p><strong>Description:</strong> {{ book.description }}</p>
+
+    <div class="actions">
+      <form method="post" action="{% url 'add_to_cart' book.id %}">
+        {% csrf_token %}
+        <button type="submit">🛒 Add to Cart</button>
+      </form>
+
+      <form method="post" action="{% url 'add_to_wishlist' book.id %}">
+        {% csrf_token %}
+        <button type="submit">♡ Add to Wishlist</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% if related_books %}
+  <div class="related-section">
+    <h3>Related Books</h3>
+    <ul class="related-list">
+      {% for related in related_books %}
+        <li>
+          <a href="{% url 'book_detail' related.id %}">
+            {{ related.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ category }} Books</h2>
+{% if books %}
+<div class="book-grid">
+    {% for book in books %}
+    <div class="book-card">
+        <img src="{{ book.cover.url }}" alt="{{ book.title }}">
+        <h3>{{ book.title }}</h3>
+        <p>₹{{ book.price }}</p>
+        <a href="{% url 'book_detail' book.id %}">View Details</a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No books found in this category.</p>
+{% endif %}
+{% endblock %}

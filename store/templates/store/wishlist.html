@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Wishlist</h2>
+{% if items %}
+  <div class="wishlist-grid">
+    {% for item in items %}
+      <div class="wishlist-card">
+        <img src="{{ item.book.cover.url }}" alt="{{ item.book.title }}" />
+        <h4>{{ item.book.title }}</h4>
+        <p>₹{{ item.book.price }}</p>
+
+        <!-- Add to Cart (keeps item in wishlist) -->
+        <form method="post" action="{% url 'add_to_cart' item.book.id %}">
+          {% csrf_token %}
+          <button type="submit">Add to Cart</button>
+        </form>
+
+        <!-- Move to Cart (removes from wishlist) -->
+        <form method="post" action="{% url 'move_to_cart' item.book.id %}">
+          {% csrf_token %}
+          <button type="submit">Move to Cart</button>
+        </form>
+
+        <!-- Remove from Wishlist -->
+        <form method="post" action="{% url 'remove_from_wishlist' item.book.id %}">
+          {% csrf_token %}
+          <button type="submit">Remove</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>Your wishlist is empty.</p>
+{% endif %}
+{% endblock %}

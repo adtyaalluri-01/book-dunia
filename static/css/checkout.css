@@ -1,0 +1,35 @@
+/* Theme Variables */
+:root[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #222222;
+  --card-bg: #f9f9f9;
+  --accent-color: #F37254;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #1e1e1e;
+  --text-color: #dddddd;
+  --card-bg: #2c2c2c;
+  --accent-color: #F37254;
+  --shadow-color: rgba(255, 255, 255, 0.05);
+}
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.checkout-container {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  box-shadow: 0 0 12px var(--shadow-color);
+}
+
+.checkout-container h2,
+.checkout-container p {
+  color: var(--text-color);
+}
+
+#rzp-button {
+  background-color: var(--accent-color);
+}

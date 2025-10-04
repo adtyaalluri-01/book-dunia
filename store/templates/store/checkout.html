@@ -1,0 +1,39 @@
+{% block content %}
+<h2>Checkout</h2>
+<p>Total: ₹{{ total|floatformat:2 }}</p>
+<button id="rzp-button">Buy Now</button>
+{% endblock %}
+
+{% load static %}
+{% block scripts %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  var options = {
+    "key": "{{ razorpay_key_id }}",
+    "amount": "{{ amount }}",
+    "currency": "INR",
+    "name": "Book Dunia",
+    "description": "Book Purchase",
+    "order_id": "{{ razorpay_order_id }}",
+    "handler": function (response){
+      window.location.href = "/payment/success/";
+    },
+    "prefill": {
+      "name": "{{ user.get_full_name }}",
+      "email": "{{ user.email }}",
+      "contact": "{{ user.profile.phone }}"
+    },
+    "theme": {
+      "color": "#F37254"
+    }
+  };
+  var rzp = new Razorpay(options);
+  document.getElementById('rzp-button').onclick = function(e){
+    rzp.open();
+    e.preventDefault();
+  }
+</script>
+
+
+{% endblock %}
