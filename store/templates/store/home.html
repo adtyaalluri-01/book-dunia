@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
 
+{% block content %}
+<!-- Banner Section -->
 <div class="homepage-banner">
   <img src="{% static 'images/banner.jpg' %}" alt="Banner" class="banner-img">
   <div class="banner-overlay">
@@ -11,19 +12,20 @@
   </div>
 </div>
 
-<h2>Best Sellers</h2>
-<div class="book-grid">
-  {% for book in best_sellers %}
-    <div class="book-card">
-      <img src="{{ book.cover.url }}" alt="{{ book.title }}">
-      <h4>{{ book.title }}</h4>
-      <p>₹{{ book.price }}</p>
-      <a href="{% url 'book_detail' book.id %}" class="details-btn">View Details</a>
-
-    </div>
-  {% empty %}
-    <p>No best sellers found.</p>
-  {% endfor %}
-</div>
-
+<!-- Best Sellers Section -->
+<section class="best-sellers">
+  <h2>Best Sellers</h2>
+  <div class="book-grid">
+    {% for book in best_sellers %}
+      <div class="book-card">
+        <img src="{{ book.cover.url }}" alt="{{ book.title }}">
+        <h4>{{ book.title }}</h4>
+        <p>₹{{ book.price }}</p>
+        <a href="{% url 'book_detail' book.id %}" class="details-btn">View Details</a>
+      </div>
+    {% empty %}
+      <p>No best sellers found.</p>
+    {% endfor %}
+  </div>
+</section>
 {% endblock %}
